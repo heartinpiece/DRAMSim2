@@ -39,7 +39,6 @@
 
 
 namespace DRAMSim {
-	Config &cfg = *(new Config()); 
 
 
 
@@ -93,7 +92,7 @@ MultiChannelMemorySystem::MultiChannelMemorySystem(const string &deviceIniFilena
 	}
 	for (size_t i=0; i<cfg.NUM_CHANS; i++)
 	{
-		MemorySystem *channel = new MemorySystem(i, megsOfMemory/cfg.NUM_CHANS, (*csvOut), dramsim_log);
+		MemorySystem *channel = new MemorySystem(i, megsOfMemory/cfg.NUM_CHANS, cfg, (*csvOut), dramsim_log);
 		channels.push_back(channel);
 	}
 }
@@ -411,7 +410,7 @@ unsigned MultiChannelMemorySystem::findChannelNumber(uint64_t addr)
 
 	// only chan is used from this set 
 	unsigned channelNumber,rank,bank,row,col;
-	addressMapping(addr, channelNumber, rank, bank, row, col); 
+	addressMapping(addr, channelNumber, rank, bank, row, col,cfg); 
 	if (channelNumber >= cfg.NUM_CHANS)
 	{
 		ERROR("Got channel index "<<channelNumber<<" but only "<<cfg.NUM_CHANS<<" exist"); 
@@ -456,7 +455,7 @@ bool MultiChannelMemorySystem::addTransaction(bool isWrite, uint64_t addr)
 bool MultiChannelMemorySystem::willAcceptTransaction(uint64_t addr)
 {
 	unsigned chan, rank,bank,row,col; 
-	addressMapping(addr, chan, rank, bank, row, col); 
+	addressMapping(addr, chan, rank, bank, row, col,cfg); 
 	return channels[chan]->WillAcceptTransaction(); 
 }
 

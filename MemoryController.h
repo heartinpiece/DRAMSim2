@@ -51,10 +51,11 @@ using namespace std;
 
 namespace DRAMSim
 {
+class Config; 
 class MemorySystem;
 class MemoryController : public SimulatorObject
 {
-
+friend class Rank; 
 public:
 	//functions
 	MemoryController(MemorySystem* ms, CSVWriter &csvOut_, ostream &dramsim_log_);
@@ -73,13 +74,13 @@ public:
 	//fields
 	vector<Transaction *> transactionQueue;
 private:
+	MemorySystem *parentMemorySystem;
+	Config &cfg; 
+
 	ostream &dramsim_log;
 	vector< vector <BankState> > bankStates;
-	//functions
-	void insertHistogram(unsigned latencyValue, unsigned rank, unsigned bank);
 
 	//fields
-	MemorySystem *parentMemorySystem;
 
 	CommandQueue commandQueue;
 	BusPacket *poppedBusPacket;
