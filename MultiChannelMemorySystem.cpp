@@ -42,7 +42,8 @@ namespace DRAMSim {
 
 
 
-MultiChannelMemorySystem::MultiChannelMemorySystem(const string &deviceIniFilename_, const string &systemIniFilename_, const string &pwd_, const string &traceFilename_, unsigned megsOfMemory_, string *visFilename_, const IniReader::OverrideMap *paramOverrides)
+<<<<<<< HEAD
+MultiChannelMemorySystem::MultiChannelMemorySystem(const string &deviceIniFilename_, const string &systemIniFilename_, const string &pwd_, const string &traceFilename_, unsigned megsOfMemory_, string *visFilename_, const OptionsMap *paramOverrides)
 	:megsOfMemory(megsOfMemory_), deviceIniFilename(deviceIniFilename_),
 	systemIniFilename(systemIniFilename_), traceFilename(traceFilename_),
 	pwd(pwd_), visFilename(visFilename_), 
@@ -74,15 +75,17 @@ MultiChannelMemorySystem::MultiChannelMemorySystem(const string &deviceIniFilena
 	}
 
 	DEBUG("== Loading device model file '"<<deviceIniFilename<<"' == ");
-	Config::OptionsMap deviceParameters = IniReader::ReadIniFile(deviceIniFilename);
+	OptionsMap deviceParameters = IniReader::ReadIniFile(deviceIniFilename);
 	DEBUG("== Loading system model file '"<<systemIniFilename<<"' == ");
-	Config::OptionsMap systemParameters = IniReader::ReadIniFile(systemIniFilename);
+	OptionsMap systemParameters = IniReader::ReadIniFile(systemIniFilename);
 
 	// If we have any overrides, set them now before creating all of the memory objects
 	cfg.set(deviceParameters); 
 	cfg.set(systemParameters); 
-	if (paramOverrides)
-		cfg.set(*paramOverrides);
+	if (paramOverrides) {
+		OptionsFailedToSet failedOpts = cfg.set(*paramOverrides);
+		DEBUG("Setting overrides: "<<failedOpts.size()<<" Failed out of "<<paramOverrides->size()<< "\n"); 
+	}
 
 
 	if (cfg.NUM_CHANS == 0) 
@@ -528,8 +531,8 @@ int MultiChannelMemorySystem::getIniFloat(const std::string& field, float *val)
 }
 
 namespace DRAMSim {
-MultiChannelMemorySystem *getMemorySystemInstance(const string &dev, const string &sys, const string &pwd, const string &trc, unsigned megsOfMemory, string *visfilename) 
+MultiChannelMemorySystem *getMemorySystemInstance(const string &dev, const string &sys, const string &pwd, const string &trc, unsigned megsOfMemory, string *visfilename, const OptionsMap *paramOverrides) 
 {
-	return new MultiChannelMemorySystem(dev, sys, pwd, trc, megsOfMemory, visfilename);
+	return new MultiChannelMemorySystem(dev, sys, pwd, trc, megsOfMemory, visfilename, paramOverrides);
 }
 } // namespace 

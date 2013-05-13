@@ -36,11 +36,20 @@
  * provide all necessary functionality to talk to an external simulator
  */
 #include "Callback.h"
+#include <stdio.h> 
 #include <string>
+#include <map>
+#include <list> 
+
 using std::string;
 
 namespace DRAMSim 
 {
+
+	typedef std::map<std::string, std::string> OptionsMap;
+	typedef std::list<std::string> OptionsFailedToSet; 
+
+	class CSVWriter; 
 
 	class MultiChannelMemorySystem {
 		public: 
@@ -61,7 +70,7 @@ namespace DRAMSim
 			int getIniUint64(const std::string &field, uint64_t *val);
 			int getIniFloat(const std::string &field, float *val);
 	};
-	MultiChannelMemorySystem *getMemorySystemInstance(const string &dev, const string &sys, const string &pwd, const string &trc, unsigned megsOfMemory, std::string *visfilename=NULL);
+	MultiChannelMemorySystem *getMemorySystemInstance(const string &dev, const string &sys, const string &pwd, const string &trc, unsigned megsOfMemory, std::string *visfilename=NULL, const OptionsMap *paramOverrides=NULL);
 }
 
 #endif

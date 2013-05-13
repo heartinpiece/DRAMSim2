@@ -49,13 +49,6 @@
 //
 //Configuration values for the current system
 
-/*
-namespace DRAMSim {
-	struct Config; 
-	extern Config &cfg; 
-}
-*/
-
 extern std::ofstream cmd_verify_out; //used by BusPacket.cpp if VERIFICATION_OUTPUT is enabled
 /*
 extern bool VERIFICATION_OUTPUT; // output suitable to feed to modelsim
