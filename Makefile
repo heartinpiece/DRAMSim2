@@ -63,4 +63,4 @@ $(LIB_NAME_MACOS): $(POBJ)
 	g++ $(CXXFLAGS) -DLOG_OUTPUT -fPIC -o $@ -c $<
 
 clean: 
-	-rm -f $(REBUILDABLES) *.dep *.deppo
+	-rm -f $(REBUILDABLES) *.dep *.deppo *.d *.lo
