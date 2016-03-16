@@ -523,7 +523,7 @@ int main(int argc, char **argv)
 	string line;
 
 
-	MultiChannelMemorySystem *memorySystem = new MultiChannelMemorySystem(deviceIniFilename, systemIniFilename, pwdString, traceFileName, megsOfMemory, visFilename, paramOverrides);
+	MultiChannelMemorySystem *memorySystem = new MultiChannelMemorySystem(deviceIniFilename, systemIniFilename, pwdString, traceFileName, megsOfMemory, visFilename, &paramOverrides);
 	// set the frequency ratio to 1:1
 	memorySystem->setCPUClockSpeed(0); 
 	Config &cfg = memorySystem->cfg;
