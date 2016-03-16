@@ -40,6 +40,8 @@
 #include <cstdlib>
 #include <stdint.h>
 #include "PrintMacros.h"
+#include <map>
+#include <list>
 
 #ifdef __APPLE__
 #include <sys/types.h>
@@ -86,6 +88,9 @@ extern unsigned DEVICE_WIDTH;
 
 namespace DRAMSim
 {
+
+	typedef std::map<std::string, std::string> OptionsMap;
+	typedef std::list<std::string> OptionsFailedToSet; 
 
 //
 //FUNCTIONS

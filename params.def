@@ -10,6 +10,7 @@
 // Default System.ini parameters 
 
 // These will be reset by the code 
+PARAM(unsigned, TOTAL_STORAGE,0) 
 PARAM(unsigned, NUM_RANKS, 0)
 PARAM(unsigned, NUM_DEVICES, 0)
 

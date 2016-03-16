@@ -79,6 +79,8 @@ private:
 
 	ostream &dramsim_log;
 	vector< vector <BankState> > bankStates;
+	//functions
+	void insertHistogram(unsigned latencyValue, unsigned rank, unsigned bank);
 
 	//fields
 

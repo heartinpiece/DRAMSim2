@@ -39,7 +39,7 @@
 #include <string>
 //#include <CSVWriter.h>
 #include <sstream> 
-#include "DRAMSim.h"
+#include "SystemConfiguration.h"
 
 
 using namespace std; 

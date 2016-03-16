@@ -38,11 +38,10 @@
 #include "AddressMapping.h"
 
 
-namespace DRAMSim {
+using namespace DRAMSim;
 
 
 
-<<<<<<< HEAD
 MultiChannelMemorySystem::MultiChannelMemorySystem(const string &deviceIniFilename_, const string &systemIniFilename_, const string &pwd_, const string &traceFilename_, unsigned megsOfMemory_, string *visFilename_, const OptionsMap *paramOverrides)
 	:megsOfMemory(megsOfMemory_), deviceIniFilename(deviceIniFilename_),
 	systemIniFilename(systemIniFilename_), traceFilename(traceFilename_),
@@ -198,7 +197,7 @@ void MultiChannelMemorySystem::InitOutputFiles(string traceFilename)
 	}
 	// This sets up the vis file output along with the creating the result
 	// directory structure if it doesn't exist
-	if (VIS_FILE_OUTPUT)
+	if (cfg.VIS_FILE_OUTPUT)
 	{
 		stringstream out,tmpNum;
 		string path;
@@ -246,17 +245,17 @@ void MultiChannelMemorySystem::InitOutputFiles(string traceFilename)
 			// finally, figure out the filename
 			string sched = "BtR";
 			string queue = "pRank";
-			if (schedulingPolicy == RankThenBankRoundRobin)
+			if (cfg.schedulingPolicy == RankThenBankRoundRobin)
 			{
 				sched = "RtB";
 			}
-			if (queuingStructure == PerRankPerBank)
+			if (cfg.queuingStructure == PerRankPerBank)
 			{
 				queue = "pRankpBank";
 			}
 
 			/* I really don't see how "the C++ way" is better than snprintf()  */
-			out << (TOTAL_STORAGE>>10) << "GB." << NUM_CHANS << "Ch." << NUM_RANKS <<"R." <<ADDRESS_MAPPING_SCHEME<<"."<<ROW_BUFFER_POLICY<<"."<< TRANS_QUEUE_DEPTH<<"TQ."<<CMD_QUEUE_DEPTH<<"CQ."<<sched<<"."<<queue;
+			out << (cfg.TOTAL_STORAGE>>10) << "GB." << cfg.NUM_CHANS << "Ch." << cfg.NUM_RANKS <<"R." <<cfg.addressMappingScheme<<"."<<cfg.rowBufferPolicy<<"."<< cfg.TRANS_QUEUE_DEPTH<<"TQ."<<cfg.CMD_QUEUE_DEPTH<<"CQ."<<sched<<"."<<queue;
 		}
 		else //visFilename given
 		{
@@ -360,7 +359,7 @@ MultiChannelMemorySystem::~MultiChannelMemorySystem()
 	dramsim_log.flush();
 	dramsim_log.close();
 #endif
-	if (VIS_FILE_OUTPUT) 
+	if (cfg.VIS_FILE_OUTPUT) 
 	{	
 		visDataOut.flush();
 		visDataOut.close();
@@ -380,8 +379,8 @@ void MultiChannelMemorySystem::actual_update()
 
 	if (currentClockCycle % cfg.EPOCH_LENGTH == 0)
 	{
-		(*csvOut) << "ms" <<currentClockCycle * tCK * 1E-6; 
-		for (size_t i=0; i<NUM_CHANS; i++)
+		(*csvOut) << "ms" <<currentClockCycle * cfg.tCK * 1E-6; 
+		for (size_t i=0; i<cfg.NUM_CHANS; i++)
 		{
 			channels[i]->printStats(false); 
 		}
@@ -477,7 +476,7 @@ bool MultiChannelMemorySystem::willAcceptTransaction()
 
 void MultiChannelMemorySystem::printStats(bool finalStats) {
 
-	(*csvOut) << "ms" <<currentClockCycle * tCK * 1E-6; 
+	(*csvOut) << "ms" <<currentClockCycle * cfg.tCK * 1E-6; 
 	for (size_t i=0; i<cfg.NUM_CHANS; i++)
 	{
 		PRINT("==== Channel ["<<i<<"] ====");

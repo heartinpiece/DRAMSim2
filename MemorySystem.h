@@ -49,6 +49,7 @@ using std::vector;
 
 namespace DRAMSim
 {
+typedef void (*powerCallBack_t)(double bgpower, double burstpower, double refreshpower, double actprepower);
 typedef CallbackBase<void,unsigned,uint64_t,uint64_t> Callback_t;
 class Config; 
 class CSVWriter; 

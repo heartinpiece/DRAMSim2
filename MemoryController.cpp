@@ -902,7 +902,7 @@ void MemoryController::printStats(bool finalStats)
 		map<unsigned,unsigned>::iterator it; //
 		for (it=latencies.begin(); it!=latencies.end(); it++)
 		{
-			PRINT( "       ["<< it->first <<"-"<<it->first+(cfg.HISTOGRAM_BIN_SIZE-1)<<"] : "<< it->second );
+			PRINT( "       ["<< it->first <<"-"<<it->first+(cfg.LATENCY_HISTOGRAM_BIN_SIZE-1)<<"] : "<< it->second );
 			if (cfg.VIS_FILE_OUTPUT)
 			{
 				csvOut.getOutputStream() << it->first <<"="<< it->second << endl;

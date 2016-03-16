@@ -124,6 +124,7 @@ MemorySystem::MemorySystem(unsigned id, unsigned int megsOfMemory, Config &cfg_,
 
 	cfg.NUM_DEVICES = cfg.JEDEC_DATA_BUS_BITS/cfg.DEVICE_WIDTH;
 	unsigned totalStorage = (cfg.NUM_RANKS * megsOfStoragePerRank); 
+        cfg.TOTAL_STORAGE=totalStorage;
 
 	DEBUG("CH. " <<systemID<<" TOTAL_STORAGE : "<< totalStorage << "MB | "<<cfg.NUM_RANKS<<" Ranks | "<< cfg.NUM_DEVICES <<" Devices per rank");
 

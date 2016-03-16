@@ -75,7 +75,7 @@ void addressMapping(uint64_t physicalAddress, unsigned &newTransactionChan, unsi
 	// from the bottom bits of the column 
 	// 
 	// For example: cowLowBits = log2(64bytes) - 3 bits = 3 bits 
-	unsigned colLowBitWidth = COL_LOW_BIT_WIDTH;
+	unsigned colLowBitWidth = dramsim_log2(transactionSize) - byteOffsetWidth;
 
 	physicalAddress >>= colLowBitWidth;
 	unsigned colHighBitWidth = colBitWidth - colLowBitWidth; 

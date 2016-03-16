@@ -49,8 +49,6 @@ namespace DRAMSim
 	typedef std::map<std::string, std::string> OptionsMap;
 	typedef std::list<std::string> OptionsFailedToSet; 
 
-	class CSVWriter; 
-
 	class MultiChannelMemorySystem {
 		public: 
 			bool addTransaction(bool isWrite, uint64_t addr);
